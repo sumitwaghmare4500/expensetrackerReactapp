@@ -1,6 +1,7 @@
 import ExpenseItem from "./ExpenseItem";
 import Card from "../UI/Card";
 import { useState } from "react";
+import NewExpense from "./NewExpense/NewExpense";
 function ExpenseDetail(){
 const [expenses,setExpenses]=useState( [
   {
@@ -39,6 +40,7 @@ const deleteExpenseHandler = (expenseId) => {
       return(
         <Card className='expense-item'>
         <h2>Let's get strated</h2>
+        <NewExpense/>
       
       {expenses.map(expense => (
         <ExpenseItem
