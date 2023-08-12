@@ -1,9 +1,9 @@
 import React from "react";
-import ExpenseDeatail from "./components/Expenses/ExpenseDetail.js"
+import ExpenseDetail from "./components/Expenses/ExpenseDetail.js"
 function App(){
   
   return(
-   <ExpenseDeatail/>
+   <ExpenseDetail/>
   ) 
   
 }
