@@ -36,11 +36,15 @@ const [expenses,setExpenses]=useState( [
 const deleteExpenseHandler = (expenseId) => {
   setExpenses(prevExpenses => prevExpenses.filter(e => e.id !== expenseId));
 };
+const addExpenseHandler=expense=>{
+  console.log("in expensedetail.js")
+  console.log(expense)
+}
  
       return(
         <Card className='expense-item'>
         <h2>Let's get strated</h2>
-        <NewExpense/>
+        <NewExpense onAddExpense={addExpenseHandler}/>
       
       {expenses.map(expense => (
         <ExpenseItem
