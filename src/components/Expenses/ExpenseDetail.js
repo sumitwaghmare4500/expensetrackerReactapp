@@ -3,12 +3,8 @@ import Card from "../UI/Card";
 import { useState } from "react";
 import NewExpense from "./NewExpense/NewExpense";
 import ExpenseFilter from "./ExpenseFilter";
-function ExpenseDetail(props){
-  const [filteredYear,setFilterdYear]=useState("2020")
-  const filterChangeHandler=selectedYear=>{
-    setFilterdYear(selectedYear)
-  }
-const [expenses,setExpenses]=useState( [
+
+const DUMMY_EXPENSES=[
   {
     id:1,
   title:'Gift',
@@ -37,14 +33,21 @@ const [expenses,setExpenses]=useState( [
   amount:90,
   date:new Date(2022,6,16),
   },
-])
+]
+function ExpenseDetail(props){
+  const [filteredYear,setFilterdYear]=useState("2020")
+  const filterChangeHandler=selectedYear=>{
+    setFilterdYear(selectedYear)
+  }
+const [expenses,setExpenses]=useState( DUMMY_EXPENSES)
 const deleteExpenseHandler = (expenseId) => {
   setExpenses(prevExpenses => prevExpenses.filter(e => e.id !== expenseId));
 };
-const addExpenseHandler=expense=>{
-  console.log("in expensedetail.js")
-  console.log(expense)
-}
+const addExpenseHandler = expense => {
+  setExpenses(prevExpenses => {
+    return [expense, ...prevExpenses];
+  });
+};
  
       return(
         <Card className='expense-item'>
