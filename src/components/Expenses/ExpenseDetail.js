@@ -2,7 +2,12 @@ import ExpenseItem from "./ExpenseItem";
 import Card from "../UI/Card";
 import { useState } from "react";
 import NewExpense from "./NewExpense/NewExpense";
-function ExpenseDetail(){
+import ExpenseFilter from "./ExpenseFilter";
+function ExpenseDetail(props){
+  const [filteredYear,setFilterdYear]=useState("2020")
+  const filterChangeHandler=selectedYear=>{
+    setFilterdYear(selectedYear)
+  }
 const [expenses,setExpenses]=useState( [
   {
     id:1,
@@ -43,9 +48,9 @@ const addExpenseHandler=expense=>{
  
       return(
         <Card className='expense-item'>
-        <h2>Let's get strated</h2>
+        <h2>Lets get strated</h2>
         <NewExpense onAddExpense={addExpenseHandler}/>
-      
+      <ExpenseFilter selected={filteredYear} onChangeFilter={filterChangeHandler}/>
       {expenses.map(expense => (
         <ExpenseItem
           key={expense.id}
