@@ -34,27 +34,33 @@ const DUMMY_EXPENSES=[
   date:new Date(2022,6,16),
   },
 ]
-function ExpenseDetail(props){
-  const [filteredYear,setFilterdYear]=useState("2020")
-  const filterChangeHandler=selectedYear=>{
-    setFilterdYear(selectedYear)
-  }
-const [expenses,setExpenses]=useState( DUMMY_EXPENSES)
-const deleteExpenseHandler = (expenseId) => {
-  setExpenses(prevExpenses => prevExpenses.filter(e => e.id !== expenseId));
-};
-const addExpenseHandler = expense => {
-  setExpenses(prevExpenses => {
-    return [expense, ...prevExpenses];
-  });
-};
- 
-      return(
-        <Card className='expense-item'>
-        <h2>Lets get strated</h2>
-        <NewExpense onAddExpense={addExpenseHandler}/>
-      <ExpenseFilter selected={filteredYear} onChangeFilter={filterChangeHandler}/>
-      {expenses.map(expense => (
+function ExpenseDetail(props) {
+  const [filteredYear, setFilteredYear] = useState("2020");
+  const filterChangeHandler = (selectedYear) => {
+    setFilteredYear(selectedYear);
+  };
+  
+  const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
+
+  const deleteExpenseHandler = (expenseId) => {
+    setExpenses((prevExpenses) => prevExpenses.filter(e => e.id !== expenseId));
+  };
+  
+  const addExpenseHandler = (expense) => {
+    setExpenses((prevExpenses) => [expense, ...prevExpenses]);
+  };
+
+  // Filter expenses based on the selected year
+  const filteredExpenses = expenses.filter(
+    (expense) => expense.date.getFullYear().toString() === filteredYear
+  );
+
+  return (
+    <Card className="expense-item">
+      <h2>Lets get started</h2>
+      <NewExpense onAddExpense={addExpenseHandler} />
+      <ExpenseFilter selected={filteredYear} onChangeFilter={filterChangeHandler} />
+      {filteredExpenses.map((expense) => (
         <ExpenseItem
           key={expense.id}
           date={expense.date}
@@ -64,9 +70,8 @@ const addExpenseHandler = expense => {
           onDelete={() => deleteExpenseHandler(expense.id)}
         />
       ))}
-   
-     
-      </Card>
-      )
+    </Card>
+  );
 }
+
 export default ExpenseDetail;
