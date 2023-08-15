@@ -7,7 +7,15 @@ const ExpenseForm = (props) => {
     const [enterlocation, setLocation] = useState('');
     const [enteramount, setAmount] = useState('');
     const [enterdate, setDate] = useState('');
-
+    const [formVisible,setFormVisible]=useState(false)
+   
+    const openFormHandler=()=>{
+     setFormVisible(true)
+    }
+      const closeFormHandler=()=>{
+     setFormVisible(false)
+    }
+   
     // Handle individual input changes
     const titleChangeHandler = (event) => setTitle(event.target.value);
     const locationChangeHandler = (event) => setLocation(event.target.value);
@@ -23,7 +31,8 @@ const ExpenseForm = (props) => {
             date:new Date(enterdate)
         }
         
-
+        setFormVisible(false)
+  
         // Optionally, you can clear the form after submission
         props.onSaveExpenseData(expenseData)
         setTitle('');
@@ -31,7 +40,9 @@ const ExpenseForm = (props) => {
         setAmount('');
         setDate('');
     }
-
+    if(!formVisible){
+        return <button onClick={openFormHandler}>Open Form</button>
+       }
     return (
         <form onSubmit={handleSubmit}>
             <div className="new-expense__controls">
@@ -54,6 +65,7 @@ const ExpenseForm = (props) => {
             </div>
             <div className="new-expense__actions">
                 <button type="submit">Add Expense</button>
+                <button type="button" onClick={closeFormHandler}>Cancle</button>
             </div>
         </form>
     )
