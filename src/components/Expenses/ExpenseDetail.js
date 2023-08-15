@@ -1,8 +1,9 @@
-import ExpenseItem from "./ExpenseItem";
+
 import Card from "../UI/Card";
 import { useState } from "react";
 import NewExpense from "./NewExpense/NewExpense";
 import ExpenseFilter from "./ExpenseFilter";
+import ExpenseList from "./ExpenseList";
 
 const DUMMY_EXPENSES=[
   {
@@ -42,9 +43,7 @@ function ExpenseDetail(props) {
   
   const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
 
-  const deleteExpenseHandler = (expenseId) => {
-    setExpenses((prevExpenses) => prevExpenses.filter(e => e.id !== expenseId));
-  };
+
   
   const addExpenseHandler = (expense) => {
     setExpenses((prevExpenses) => [expense, ...prevExpenses]);
@@ -60,16 +59,7 @@ function ExpenseDetail(props) {
       <h2>Lets get started</h2>
       <NewExpense onAddExpense={addExpenseHandler} />
       <ExpenseFilter selected={filteredYear} onChangeFilter={filterChangeHandler} />
-      {filteredExpenses.map((expense) => (
-        <ExpenseItem
-          key={expense.id}
-          date={expense.date}
-          location={expense.location}
-          title={expense.title}
-          amount={expense.amount}
-          onDelete={() => deleteExpenseHandler(expense.id)}
-        />
-      ))}
+     <ExpenseList items={filteredExpenses}/>
     </Card>
   );
 }
